@@ -120,7 +120,8 @@ class Connection(object):
         password=None,
         check_hostname=None,
         ssl_cert=None,
-        thrift_transport=None
+        thrift_transport=None,
+        thrift_keepalive=False
     ):
         """Connect to HiveServer2
 
@@ -194,7 +195,7 @@ class Connection(object):
                 port = 10000
             if auth is None:
                 auth = 'NONE'
-            socket = thrift.transport.TSocket.TSocket(host, port)
+            socket = thrift.transport.TSocket.TSocket(host, port, thrift_keepalive)
             if auth == 'NOSASL':
                 # NOSASL corresponds to hive.server2.authentication=NOSASL in hive-site.xml
                 self._transport = thrift.transport.TTransport.TBufferedTransport(socket)
