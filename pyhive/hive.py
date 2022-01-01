@@ -121,6 +121,7 @@ class Connection(object):
         check_hostname=None,
         ssl_cert=None,
         thrift_transport=None,
+        timeout=None,
         thrift_keepalive=False
     ):
         """Connect to HiveServer2
@@ -153,6 +154,7 @@ class Connection(object):
                 ),
                 ssl_context=ssl_context,
             )
+            thrift_transport.setTimeout(timeout)
 
             if auth in ("BASIC", "NOSASL", "NONE", None):
                 # Always needs the Authorization header
@@ -196,6 +198,7 @@ class Connection(object):
             if auth is None:
                 auth = 'NONE'
             socket = thrift.transport.TSocket.TSocket(host, port, socket_keepalive=thrift_keepalive)
+            socket.setTimeout(timeout)
             if auth == 'NOSASL':
                 # NOSASL corresponds to hive.server2.authentication=NOSASL in hive-site.xml
                 self._transport = thrift.transport.TTransport.TBufferedTransport(socket)
