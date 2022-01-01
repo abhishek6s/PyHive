@@ -119,9 +119,9 @@ if http:
     transport = THttpClient.THttpClient(host, port, uri)
 else:
     if ssl:
-        socket = TSSLSocket.TSSLSocket(host, port, validate=validate, ca_certs=ca_certs, keyfile=keyfile, certfile=certfile, thrift_keepalive=keepalive)
+        socket = TSSLSocket.TSSLSocket(host, port, validate=validate, ca_certs=ca_certs, keyfile=keyfile, certfile=certfile, socket_keepalive=keepalive)
     else:
-        socket = TSocket.TSocket(host, port, thrift_keepalive=keepalive)
+        socket = TSocket.TSocket(host, port, socket_keepalive=keepalive)
     if framed:
         transport = TTransport.TFramedTransport(socket)
     else:
