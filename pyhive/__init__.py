@@ -1,3 +1,3 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
-__version__ = '0.6.5.sixsense'
+__version__ = '0.7.0.sixsense'
