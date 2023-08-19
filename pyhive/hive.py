@@ -160,7 +160,8 @@ class Connection(object):
         check_hostname=None,
         ssl_cert=None,
         thrift_transport=None,
-        timeout=None,
+        connection_timeout_ms=None,
+        query_timeout_ms=None,
         thrift_keepalive=False
     ):
         """Connect to HiveServer2
@@ -193,7 +194,7 @@ class Connection(object):
                 ),
                 ssl_context=ssl_context,
             )
-            thrift_transport.setTimeout(timeout)
+            thrift_transport.setTimeout(connection_timeout_ms)
 
             if auth in ("BASIC", "NOSASL", "NONE", None):
                 # Always needs the Authorization header
@@ -237,7 +238,7 @@ class Connection(object):
             if auth is None:
                 auth = 'NONE'
             socket = thrift.transport.TSocket.TSocket(host, port, socket_keepalive=thrift_keepalive)
-            socket.setTimeout(timeout)
+            socket.setTimeout(connection_timeout_ms)
             if auth == 'NOSASL':
                 # NOSASL corresponds to hive.server2.authentication=NOSASL in hive-site.xml
                 self._transport = thrift.transport.TTransport.TBufferedTransport(socket)
@@ -282,6 +283,7 @@ class Connection(object):
             self._sessionHandle = response.sessionHandle
             assert response.serverProtocolVersion == protocol_version, \
                 "Unable to handle protocol version {}".format(response.serverProtocolVersion)
+            socket.setTimeout(query_timeout_ms)
             with contextlib.closing(self.cursor()) as cursor:
                 cursor.execute('USE `{}`'.format(database))
         except:

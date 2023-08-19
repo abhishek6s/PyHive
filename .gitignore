@@ -15,3 +15,4 @@ cover/
 *.iml
 /scripts/.thrift_gen
 build/
+PyHive6si*

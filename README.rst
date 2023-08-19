@@ -1,6 +1,6 @@
-================================
-Project is currently unsupported
-================================
+========================================
+Project is currently Supported by 6sense
+========================================
 
 
 
@@ -16,6 +16,11 @@ PyHive
 PyHive is a collection of Python `DB-API <http://www.python.org/dev/peps/pep-0249/>`_ and
 `SQLAlchemy <http://www.sqlalchemy.org/>`_ interfaces for `Presto <http://prestodb.io/>`_ ,
 `Hive <http://hive.apache.org/>`_ and `Trino <https://trino.io/>`_.
+
+Extra from Dropbox/Pyhive:
+
+- Connection Timeout (`hive.connect(host=host, connection_timeout_ms=conn_timeout, query_timeout_ms=query_timeout)`)
+- Query Timeout
 
 Usage
 =====
