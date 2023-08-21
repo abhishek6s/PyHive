@@ -30,7 +30,7 @@ inspect.signature(hive.Connection)
 host = 'define host' # hive-hiveserver2.{env}.6si.com, hive-hiveserver2-adhoc
 connection_timeout= 10  # 10 sec
 query_timeout = 60  # 60 sec
-conn = hive.connect(host=host, port=10000, username='hadoop',database='default', auth='NOSASL', configuration={}, connection_timeout_ms=connection_timeout * 1000, query_timeout_ms=query_timeout * 1000)
+conn = hive.connect(host=host, port=10000, username='hadoop',database='default', auth='NOSASL', configuration={}, timeout=connection_timeout * 1000, query_timeout=query_timeout * 1000)
 time.sleep(connection_timeout)
 curr = conn.cursor()
 curr.execute("select count(*) from abhishek.unified_events")
@@ -40,5 +40,7 @@ curr.execute("select dt, count(*) from abhishek.unified_events group by dt"")
 curr.description
 a = curr.fetchall()
 curr.fetch_logs()
+
+# don't run if socket timeout as socket is already closed
 conn.close()
 ```

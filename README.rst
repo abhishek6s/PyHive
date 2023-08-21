@@ -19,8 +19,8 @@ PyHive is a collection of Python `DB-API <http://www.python.org/dev/peps/pep-024
 
 Extra from Dropbox/Pyhive:
 
-- Connection Timeout (`hive.connect(host=host, connection_timeout_ms=conn_timeout, query_timeout_ms=query_timeout)`)
-- Query Timeout
+- Connection Timeout (`hive.connect(host=host, timeout=connection_timeout)`)
+- Query Timeout (`hive.connect(host=host, query_timeout=query_timeout)`)
 
 Usage
 =====
