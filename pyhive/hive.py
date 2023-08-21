@@ -122,6 +122,7 @@ class Connection(object):
         ssl_cert=None,
         thrift_transport=None,
         timeout=None,
+        query_timeout=None,
         thrift_keepalive=False
     ):
         """Connect to HiveServer2
@@ -256,6 +257,7 @@ class Connection(object):
             self._sessionHandle = response.sessionHandle
             assert response.serverProtocolVersion == protocol_version, \
                 "Unable to handle protocol version {}".format(response.serverProtocolVersion)
+            socket.setTimeout(query_timeout)
             with contextlib.closing(self.cursor()) as cursor:
                 cursor.execute('USE `{}`'.format(database))
         except:
